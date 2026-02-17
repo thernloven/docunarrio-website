@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --color-accent: #700911;
+  --color-accent-light: #8a1a24;
+  --color-secondary: #4c5c68;
+  --color-text-primary: #1e1e1e;
+  --color-text-secondary: #7b776f;
+  --color-cream: #e4e2dd;
+  --color-border: #cccccc;
+  --color-bg: #f7faf7;
+  --color-surface: #e4e2dd;
+  --color-dark: #1e1e1e;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  overflow-x: hidden;
+}
+
+/* Gradient text utility */
+.text-gradient {
+  background: linear-gradient(135deg, #700911 0%, #b82033 50%, #4c5c68 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+/* Reveal animation base */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-up.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero float */
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(0.3deg); }
+  66% { transform: translateY(-6px) rotate(-0.2deg); }
+}
+
+.animate-float {
+  animation: hero-float 8s ease-in-out infinite;
+}
+
+/* Pulse dot */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.5); }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
