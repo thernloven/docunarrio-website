@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   title: "Docunarrio — Private AI for Aviation",
   description:
     "AI-powered information search designed to give you answers — fast, accurate, and completely private. Built with aviation-grade safety principles.",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
