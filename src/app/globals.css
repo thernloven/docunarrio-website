@@ -2,6 +2,7 @@
 
 @theme inline {
   --font-sans: var(--font-inter);
+  --font-display: var(--font-hanken);
   --color-accent: #700911;
   --color-accent-light: #8a1a24;
   --color-secondary: #4c5c68;
@@ -23,6 +24,10 @@ body {
   background: var(--color-bg);
   color: var(--color-text-primary);
   overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), sans-serif;
 }
 
 /* Gradient text utility */
