@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 
 export async function POST(request: Request) {
   try {
-    const { email } = await request.json();
+    const { email, company } = await request.json();
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json(
@@ -21,6 +21,15 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+
+    if (!company || typeof company !== "string" || !company.trim()) {
+      return NextResponse.json(
+        { error: "Company name is required" },
+        { status: 400 }
+      );
+    }
+
+    const sanitizedCompany = company.trim();
 
     // Add contact to Brevo via API
     try {
@@ -32,7 +41,7 @@ export async function POST(request: Request) {
         },
         body: JSON.stringify({
           email,
-          attributes: { DEMO_REQUESTED: true },
+          attributes: { DEMO_REQUESTED: true, COMPANY: sanitizedCompany },
           listIds: [],
           updateEnabled: true,
         }),
@@ -47,10 +56,11 @@ export async function POST(request: Request) {
     const notifResult = await transporter.sendMail({
       from: '"Docunarrio" <info@docunarrio.com>',
       to: "info@docunarrio.com",
-      subject: `Demo Request from ${email}`,
+      subject: `Demo Request from ${sanitizedCompany} (${email})`,
       html: `
         <div style="font-family: sans-serif; max-width: 480px;">
           <h2 style="color: #700911;">New Demo Request</h2>
+          <p><strong>Company:</strong> ${sanitizedCompany}</p>
           <p><strong>Email:</strong> ${email}</p>
           <p><strong>Time:</strong> ${new Date().toISOString()}</p>
         </div>
@@ -67,7 +77,7 @@ export async function POST(request: Request) {
       html: `
         <div style="font-family: sans-serif; max-width: 520px; color: #1e1e1e;">
           <h2 style="color: #700911;">Thanks for your interest in Docunarrio</h2>
-          <p>We've received your demo request and will get back to you within 24 hours.</p>
+          <p>We've received your demo request and will get back to you shortly.</p>
           <p style="color: #7b776f; font-size: 14px; margin-top: 24px;">
             — The Docunarrio Team
           </p>

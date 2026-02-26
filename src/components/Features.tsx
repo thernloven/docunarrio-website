@@ -31,7 +31,7 @@ const features = [
   {
     icon: PlusSquare,
     title: "System Integration",
-    desc: "Connects with Vistair, intranets, document hubs, and more — bringing all your knowledge into one place.",
+    desc: "Connects with any platform, intranets, document hubs, and more — bringing all your knowledge into one place.",
   },
   {
     icon: Monitor,

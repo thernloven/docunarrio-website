@@ -23,7 +23,7 @@ export default function Nav() {
       }`}
     >
       <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
-        <a href="#">
+        <a href="/">
           <Image src="/logo.png" alt="Docunarrio" width={130} height={26} className="h-[26px] w-auto" />
         </a>
 
@@ -32,26 +32,27 @@ export default function Nav() {
             menuOpen ? "flex" : "hidden"
           } md:flex flex-col md:flex-row gap-5 md:gap-9 absolute md:static top-full left-0 right-0 bg-bg/97 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none p-6 md:p-0 border-b md:border-b-0 border-border/40`}
         >
-          {["features", "why", "how-it-works", "values"].map((id) => (
+          {[
+            { href: "/#features", label: "What We Offer" },
+            { href: "/#why", label: "Why Us" },
+            { href: "/#how-it-works", label: "How It Works" },
+            { href: "/#values", label: "Values" },
+            { href: "/about", label: "About" },
+            { href: "/contact", label: "Contact" },
+          ].map((link) => (
             <a
-              key={id}
-              href={`#${id}`}
+              key={link.href}
+              href={link.href}
               onClick={() => setMenuOpen(false)}
               className="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1.5px] after:bg-accent after:transition-all hover:after:w-full"
             >
-              {id === "features"
-                ? "What We Offer"
-                : id === "why"
-                ? "Why Us"
-                : id === "how-it-works"
-                ? "How It Works"
-                : "Values"}
+              {link.label}
             </a>
           ))}
         </div>
 
         <a
-          href="#cta"
+          href="/#cta"
           className="hidden md:inline-flex items-center px-6 py-2.5 text-sm font-semibold text-white bg-accent rounded-xl shadow-[0_4px_14px_rgba(112,9,17,0.25)] hover:bg-accent-light hover:shadow-[0_6px_24px_rgba(112,9,17,0.35)] hover:-translate-y-0.5 transition-all"
         >
           Request Demo

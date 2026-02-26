@@ -22,17 +22,17 @@ export default function Footer() {
             <h4 className="text-xs font-bold text-white/45 uppercase tracking-[0.08em] mb-4">
               Product
             </h4>
-            <a href="#features" className="block text-sm text-white/35 mb-2.5 hover:text-white transition-colors">What We Offer</a>
-            <a href="#how-it-works" className="block text-sm text-white/35 mb-2.5 hover:text-white transition-colors">How It Works</a>
-            <a href="#why" className="block text-sm text-white/35 mb-2.5 hover:text-white transition-colors">Why Us</a>
-            <a href="#values" className="block text-sm text-white/35 mb-2.5 hover:text-white transition-colors">Values</a>
+            <a href="/#features" className="block text-sm text-white/35 mb-2.5 hover:text-white transition-colors">What We Offer</a>
+            <a href="/#how-it-works" className="block text-sm text-white/35 mb-2.5 hover:text-white transition-colors">How It Works</a>
+            <a href="/#why" className="block text-sm text-white/35 mb-2.5 hover:text-white transition-colors">Why Us</a>
+            <a href="/#values" className="block text-sm text-white/35 mb-2.5 hover:text-white transition-colors">Values</a>
           </div>
           <div>
             <h4 className="text-xs font-bold text-white/45 uppercase tracking-[0.08em] mb-4">
               Company
             </h4>
-            <a href="#" className="block text-sm text-white/35 mb-2.5 hover:text-white transition-colors">About</a>
-            <a href="#" className="block text-sm text-white/35 mb-2.5 hover:text-white transition-colors">Contact</a>
+            <a href="/about" className="block text-sm text-white/35 mb-2.5 hover:text-white transition-colors">About</a>
+            <a href="/contact" className="block text-sm text-white/35 mb-2.5 hover:text-white transition-colors">Contact</a>
           </div>
           <div>
             <h4 className="text-xs font-bold text-white/45 uppercase tracking-[0.08em] mb-4">

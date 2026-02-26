@@ -44,7 +44,7 @@ export default function DesktopShowcase() {
               {[
                 "Multi-session conversation management",
                 "Fully traceable source attribution",
-                "Works with Vistair & existing document hubs",
+                "Works with any platform & existing document hubs",
               ].map((item) => (
                 <li key={item} className="flex items-center gap-3 text-[15px] font-medium">
                   <Check size={20} className="text-accent shrink-0" strokeWidth={2} />

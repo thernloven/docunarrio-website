@@ -4,26 +4,32 @@ import { useState } from "react";
 
 export default function CTA() {
   const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!email || status === "sending") return;
+    if (!email || !company || status === "sending") return;
 
     setStatus("sending");
     try {
       const res = await fetch("/api/demo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, company }),
       });
 
       if (!res.ok) throw new Error();
       setStatus("sent");
       setEmail("");
+      setCompany("");
     } catch {
       setStatus("error");
     }
+  }
+
+  function clearError() {
+    if (status === "error") setStatus("idle");
   }
 
   return (
@@ -49,30 +55,43 @@ export default function CTA() {
                 <span className="text-[15px] font-semibold">Demo request sent!</span>
               </div>
               <span className="text-[13px] text-white/30">
-                Check your inbox — we&apos;ll be in touch within 24 hours.
+                Check your inbox — we&apos;ll get back to you shortly.
               </span>
             </div>
           ) : (
             <>
               <form
-                className="flex flex-col sm:flex-row gap-3 max-w-[460px] mx-auto mb-4"
+                className="flex flex-col gap-3 max-w-[460px] mx-auto mb-4"
                 onSubmit={handleSubmit}
               >
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter your work email"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    if (status === "error") setStatus("idle");
-                  }}
-                  className="flex-1 px-[22px] py-4 text-[15px] font-sans border-[1.5px] border-white/12 rounded-xl bg-white/5 text-white outline-none transition-all placeholder:text-white/30 focus:border-accent focus:bg-white/8"
-                />
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <input
+                    type="text"
+                    required
+                    placeholder="Company name"
+                    value={company}
+                    onChange={(e) => {
+                      setCompany(e.target.value);
+                      clearError();
+                    }}
+                    className="flex-1 px-[22px] py-4 text-[15px] font-sans border-[1.5px] border-white/12 rounded-xl bg-white/5 text-white outline-none transition-all placeholder:text-white/30 focus:border-accent focus:bg-white/8"
+                  />
+                  <input
+                    type="email"
+                    required
+                    placeholder="Work email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      clearError();
+                    }}
+                    className="flex-1 px-[22px] py-4 text-[15px] font-sans border-[1.5px] border-white/12 rounded-xl bg-white/5 text-white outline-none transition-all placeholder:text-white/30 focus:border-accent focus:bg-white/8"
+                  />
+                </div>
                 <button
                   type="submit"
                   disabled={status === "sending"}
-                  className="px-8 py-4 text-[15px] font-semibold text-white bg-accent rounded-xl shadow-[0_4px_14px_rgba(112,9,17,0.25)] hover:bg-accent-light hover:shadow-[0_6px_24px_rgba(112,9,17,0.35)] hover:-translate-y-0.5 transition-all cursor-pointer disabled:opacity-60 disabled:hover:translate-y-0"
+                  className="w-full px-8 py-4 text-[15px] font-semibold text-white bg-accent rounded-xl shadow-[0_4px_14px_rgba(112,9,17,0.25)] hover:bg-accent-light hover:shadow-[0_6px_24px_rgba(112,9,17,0.35)] hover:-translate-y-0.5 transition-all cursor-pointer disabled:opacity-60 disabled:hover:translate-y-0"
                 >
                   {status === "sending" ? "Sending..." : "Request Demo"}
                 </button>
@@ -83,7 +102,7 @@ export default function CTA() {
                 </span>
               ) : (
                 <span className="text-[13px] text-white/30">
-                  We&apos;ll get back to you within 24 hours.
+                  We&apos;ll get back to you shortly.
                 </span>
               )}
             </>
