@@ -65,6 +65,35 @@ export function Field({ label, hint, error, dropdown, reveal, className = "", ty
   );
 }
 
+type SelectProps = {
+  label?: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: string[];
+  placeholder?: string;
+  className?: string;
+};
+
+/** A native select styled like Field, with the chevron inset from the edge. */
+export function Select({ label, value, onChange, options, placeholder, className = "" }: SelectProps) {
+  return (
+    <label className={`block ${className}`}>
+      {label && <span className="block text-[13px] leading-[18px] font-medium text-ink mb-1.5">{label}</span>}
+      <span className="relative block">
+        <select
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className={`appearance-none w-full h-11 pl-3.5 pr-10 rounded-[10px] bg-white border border-mist text-[14px] outline-none cursor-pointer transition-shadow focus:border-ink focus:shadow-[0_0_0_4px_rgba(30,30,30,0.08)] ${value ? "text-ink" : "text-stone"}`}
+        >
+          {placeholder && <option value="" disabled>{placeholder}</option>}
+          {options.map((o) => <option key={o} value={o}>{o}</option>)}
+        </select>
+        <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 size-[18px] text-stone" />
+      </span>
+    </label>
+  );
+}
+
 export function Checkbox({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label: string }) {
   return (
     <button type="button" onClick={() => onChange(!checked)} className="inline-flex items-center gap-2 text-[14px] text-ink-700">

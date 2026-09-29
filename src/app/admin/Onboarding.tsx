@@ -4,7 +4,11 @@ import { ArrowRight, BookOpen, Building2, Check, FileText, Plus, Server, Upload,
 import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { Lockup } from "@/components/app/Logo";
-import { BrandRail, Button, Field, Progress, StatusBadge } from "@/components/app/ui";
+import { BrandRail, Button, Field, Progress, Select, StatusBadge } from "@/components/app/ui";
+
+const COUNTRIES = ["Sweden", "Norway", "Denmark", "Finland", "Iceland", "Germany", "Netherlands", "Belgium", "France", "Spain", "Portugal", "Italy", "Austria", "Switzerland", "Poland", "Ireland", "United Kingdom", "Other"];
+const INDUSTRIES = ["Aviation — airline operations", "Aviation — maintenance (MRO)", "Aviation — airports & ground handling", "Maritime", "Rail", "Energy & utilities", "Healthcare", "Legal", "Manufacturing", "Public sector", "Other"];
+const REGIONS = ["EU North — Stockholm", "EU West — Frankfurt", "EU West — Amsterdam", "On-premises (your own servers)"];
 
 // Company onboarding, as designed in Figma (Web — Onboarding, steps 1–6).
 // A walkthrough only: the API has no sign-up, company or invite endpoints
@@ -74,14 +78,14 @@ export default function Onboarding() {
                 <Field label="Company name" value={data.company} onChange={(e) => set({ company: e.target.value })} placeholder="Nordic Air AB" />
                 <div className="grid grid-cols-2 gap-3">
                   <Field label="Organisation number" value={data.orgNr} onChange={(e) => set({ orgNr: e.target.value })} placeholder="556123-4567" />
-                  <Field label="Country" value={data.country} onChange={(e) => set({ country: e.target.value })} dropdown />
+                  <Select label="Country" value={data.country} onChange={(country) => set({ country })} options={COUNTRIES} />
                 </div>
                 <Field label="Street address" value={data.street} onChange={(e) => set({ street: e.target.value })} placeholder="Flygvägen 12" />
                 <div className="grid grid-cols-2 gap-3">
                   <Field label="Postal code" value={data.zip} onChange={(e) => set({ zip: e.target.value })} placeholder="190 45" />
                   <Field label="City" value={data.city} onChange={(e) => set({ city: e.target.value })} placeholder="Stockholm" />
                 </div>
-                <Field label="Industry" value={data.industry} onChange={(e) => set({ industry: e.target.value })} placeholder="Aviation — airline operations" dropdown />
+                <Select label="Industry" value={data.industry} onChange={(industry) => set({ industry })} options={INDUSTRIES} placeholder="Choose an industry" />
               </Step>
             )}
             {step === 2 && (
@@ -117,7 +121,7 @@ export default function Onboarding() {
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <Field label="Estimated pages to index" value={data.pages} onChange={(e) => set({ pages: e.target.value })} placeholder="About 40,000" />
-                  <Field label="Hosting region" value={data.region} onChange={(e) => set({ region: e.target.value })} dropdown />
+                  <Select label="Hosting region" value={data.region} onChange={(region) => set({ region })} options={REGIONS} />
                 </div>
               </Step>
             )}
@@ -129,9 +133,7 @@ export default function Onboarding() {
                   {data.invites.map((inv, i) => (
                     <div key={i} className="grid grid-cols-[1fr_170px_32px] gap-3 items-center">
                       <Field value={inv.email} placeholder="name@company.com" onChange={(e) => set({ invites: data.invites.map((x, j) => (j === i ? { ...x, email: e.target.value } : x)) })} />
-                      <select value={inv.role} onChange={(e) => set({ invites: data.invites.map((x, j) => (j === i ? { ...x, role: e.target.value } : x)) })} className="h-11 px-3 rounded-[10px] bg-white border border-mist text-[14px] outline-none focus:border-ink">
-                        {["Admin", "Analyst", "Member"].map((r) => <option key={r}>{r}</option>)}
-                      </select>
+                      <Select value={inv.role} onChange={(role) => set({ invites: data.invites.map((x, j) => (j === i ? { ...x, role } : x)) })} options={["Admin", "Analyst", "Member"]} />
                       <button onClick={() => set({ invites: data.invites.filter((_, j) => j !== i) })} className="size-8 grid place-items-center rounded-lg text-stone hover:text-ink" aria-label="Remove"><X className="size-4" /></button>
                     </div>
                   ))}

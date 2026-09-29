@@ -105,3 +105,11 @@ h1, h2, h3, h4, h5, h6 {
   50% { opacity: 0.45; }
 }
 .dn-pulse { animation: dn-pulse 1.8s ease-in-out infinite; }
+
+/* Tailwind v4 no longer sets a pointer cursor on buttons. */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+select:not(:disabled),
+label:has(> input[type="file"]) {
+  cursor: pointer;
+}
