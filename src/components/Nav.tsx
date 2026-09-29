@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -51,12 +52,17 @@ export default function Nav() {
           ))}
         </div>
 
+        <div className="hidden md:flex items-center gap-5">
+        <Link href="/login" className="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors">
+          Sign in
+        </Link>
         <a
           href="/#cta"
           className="hidden md:inline-flex items-center px-6 py-2.5 text-sm font-semibold text-white bg-accent rounded-xl shadow-[0_4px_14px_rgba(112,9,17,0.25)] hover:bg-accent-light hover:shadow-[0_6px_24px_rgba(112,9,17,0.35)] hover:-translate-y-0.5 transition-all"
         >
           Request Demo
         </a>
+        </div>
 
         <button
           className="flex md:hidden flex-col gap-[5px] p-1"

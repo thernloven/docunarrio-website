@@ -13,6 +13,23 @@
   --color-bg: #f7faf7;
   --color-surface: #e4e2dd;
   --color-dark: #1e1e1e;
+
+  /* App tokens (Figma "Docunarrio" collection) */
+  --color-ink: #1e1e1e;
+  --color-ink-700: #3a3936;
+  --color-slate: #4c5c68;
+  --color-stone: #7b776f;
+  --color-mist: #cccccc;
+  --color-sand: #e4e2dd;
+  --color-sand-tint: #efede9;
+  --color-snow: #f7faf7;
+  --color-burgundy: #700911;
+  --color-danger: #a3242b;
+  --color-success: #3e6b55;
+  --color-success-soft: #e6efea;
+  --color-warn: #9a6b22;
+  --color-warn-soft: #f5eddf;
+  --color-burgundy-soft: #f3e6e7;
 }
 
 html {
@@ -81,3 +98,10 @@ h1, h2, h3, h4, h5, h6 {
 .animate-pulse-dot {
   animation: pulse-dot 2s ease-in-out infinite;
 }
+
+/* App: calm shimmer for pending answers */
+@keyframes dn-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+.dn-pulse { animation: dn-pulse 1.8s ease-in-out infinite; }
