@@ -23,7 +23,7 @@ export default function Onboarding() {
   const set = (patch: Partial<typeof data>) => setData((d) => ({ ...d, ...patch }));
   const next = () => setStep((s) => s + 1);
   const back = () => setStep((s) => Math.max(0, s - 1));
-  useEffect(() => window.scrollTo({ top: 0 }), [step]);
+  useEffect(() => { window.scrollTo({ top: 0 }); }, [step]);
 
   return (
     <div className="flex min-h-screen bg-snow">
