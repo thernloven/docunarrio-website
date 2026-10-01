@@ -28,11 +28,17 @@ export default function ChatScreen() {
 
 // MARK: - New chat
 
+/** Starter questions on a new chat. */
+const STARTERS = [
+  "What are our policy with rate of climb when approaching a level?",
+  "Describe approach climb",
+  "Describe landing climb.",
+];
+
 function Welcome() {
   const { user, selectedStore, libraries, reloadLibraries, ask } = useApp();
   const h = new Date().getHours();
   const part = h < 5 ? "Good evening" : h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening";
-  const docs = (selectedStore?.documents ?? []).slice(0, 4);
 
   return (
     <div className="flex-1 overflow-y-auto">
@@ -56,21 +62,16 @@ function Welcome() {
           </div>
         )}
 
-        {docs.length > 0 && (
-          <div className="w-full max-w-[720px] grid sm:grid-cols-2 gap-3">
-            {docs.map((d) => {
-              const name = d.fileName.replace(/\.pdf$/i, "");
-              const q = `What are the key points in ${name}?`;
-              return (
-                <button key={d.id} onClick={() => ask(q)} className="group text-left rounded-[14px] bg-snow border border-sand px-4 py-3.5 hover:border-mist transition-colors">
-                  <p className="text-[14px] leading-[22px] font-medium text-ink flex items-start justify-between gap-3">
-                    {q}
-                    <ArrowRight className="size-4 mt-[3px] text-stone opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
-                  </p>
-                  <p className="text-[12px] leading-4 text-stone mt-1">{d.fileName}{d.fileVersion ? ` · v${d.fileVersion}` : ""}</p>
-                </button>
-              );
-            })}
+        {selectedStore && (
+          <div className="w-full max-w-[720px] grid sm:grid-cols-3 gap-3">
+            {STARTERS.map((q) => (
+              <button key={q} onClick={() => ask(q)} className="group text-left rounded-[14px] bg-snow border border-sand px-4 py-3.5 hover:border-mist transition-colors">
+                <p className="text-[14px] leading-[22px] font-medium text-ink flex items-start justify-between gap-3">
+                  {q}
+                  <ArrowRight className="size-4 mt-[3px] text-stone opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                </p>
+              </button>
+            ))}
           </div>
         )}
       </div>
